@@ -4,7 +4,7 @@ import './App.css'
 import CustomCursor from './components/CustomCursor'
 import Marquee from './components/Marquee'
 import ProjectStack, { type ProjectCard } from './components/ProjectStack'
-import SpotlightStage from './components/SpotlightStage'
+import HeroBackdrop from './components/HeroBackdrop'
 import UserCursor from './components/UserCursor'
 import { heraclesScreens, navItems } from './data'
 import { coverArt, warmCovers } from './lib/covers'
@@ -37,6 +37,16 @@ const capabilities = [
     name: '二次开发',
     desc: '在别人的开源项目上做中文化、功能改造和长期维护，知道怎么读陌生的代码。',
   },
+]
+
+const heroLinks = [
+  { label: 'Heracles', href: '#work' },
+  { label: 'Zoosy', href: '#work' },
+  { label: 'Bridge', href: '#work' },
+  { label: 'LinkStudy', href: '#work' },
+  { label: '能力', href: '#capability' },
+  { label: '关于', href: '#about' },
+  { label: 'GitHub', href: 'https://github.com/theohowie' },
 ]
 
 const projectMeta: Omit<ProjectCard, 'images'>[] = [
@@ -153,28 +163,42 @@ function App() {
       <main id="main">
         <section className="hero" id="top" aria-labelledby="hero-title">
           <div className="hero-grid" aria-hidden="true" />
-          <div className="hero-glow" aria-hidden="true" />
+
+          <HeroBackdrop
+            baseSrc={assetUrl('images/hero-base.webp')}
+            revealSrc={assetUrl('images/hero-reveal.webp')}
+          />
 
           <div className="hero-type">
             <UserCursor label="何文韬" className="hero-name">
               <h1 className="wordmark" id="hero-title">
-                <span>He</span> <span>Wentao</span>
+                He Wentao
               </h1>
-              <p className="wordmark-sub">TheoHowie</p>
             </UserCursor>
+            <p className="wordmark-sub">TheoHowie</p>
           </div>
-
-          <SpotlightStage
-            baseSrc={assetUrl(hero?.src ?? 'images/heracles-hero.webp')}
-            revealSrc={assetUrl(second?.src ?? 'images/heracles-chat.webp')}
-            alt="Heracles 界面"
-          />
 
           <div className="hero-foot">
             <p className="hero-hint">
               <span className="hint-dot" aria-hidden="true" />
-              移动光标，看另一张界面
+              移动光标，看另一面
             </p>
+
+            <ul className="hero-links">
+              {heroLinks.map((item) => (
+                <li key={item.label}>
+                  <a
+                    href={item.href}
+                    {...(item.href.startsWith('#')
+                      ? {}
+                      : { target: '_blank', rel: 'noreferrer' })}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+
             <a className="hero-scroll" href="#work">
               作品
               <ArrowDown size={14} strokeWidth={1.6} />

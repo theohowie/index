@@ -1,0 +1,58 @@
+.hero-bg,
+.hero-reveal {
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
+.hero-bg {
+  z-index: 10;
+  animation: hero-zoom 1.8s var(--ease) forwards;
+}
+
+.hero-reveal {
+  z-index: 20;
+  -webkit-mask-image: radial-gradient(
+    circle 320px at var(--mx, 50%) var(--my, 42%),
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 1) 38%,
+    rgba(255, 255, 255, 0.74) 58%,
+    rgba(255, 255, 255, 0.38) 74%,
+    rgba(255, 255, 255, 0.11) 88%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  mask-image: radial-gradient(
+    circle 320px at var(--mx, 50%) var(--my, 42%),
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 1) 38%,
+    rgba(255, 255, 255, 0.74) 58%,
+    rgba(255, 255, 255, 0.38) 74%,
+    rgba(255, 255, 255, 0.11) 88%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+@keyframes hero-zoom {
+  from {
+    transform: scale(1.12);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+/* 触屏没有光标，只留底图 */
+@media (pointer: coarse) {
+  .hero-reveal {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg {
+    animation: none;
+  }
+}
