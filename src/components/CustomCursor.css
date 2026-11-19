@@ -73,6 +73,12 @@ html[data-cursor-visible='true'] .cursor-dot {
   opacity: 1;
 }
 
+/* another cursor took over (e.g. the name tag) — get out of its way */
+html[data-cursor-suppressed='true'] .cursor-ring,
+html[data-cursor-suppressed='true'] .cursor-dot {
+  opacity: 0;
+}
+
 /* hover an interactive element: ring grows, dot retreats */
 html[data-cursor='link'] .cursor-ring::before {
   border-color: rgba(21, 22, 26, 0.9);

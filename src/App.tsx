@@ -5,6 +5,7 @@ import CustomCursor from './components/CustomCursor'
 import Device from './components/Device'
 import HoverPreview from './components/HoverPreview'
 import Reveal from './components/Reveal'
+import UserCursor from './components/UserCursor'
 import { heraclesScreens, navItems, rebuiltProjects } from './data'
 
 const assetUrl = (path: string) => `${import.meta.env.BASE_URL}${path}`
@@ -118,7 +119,9 @@ function App() {
               <span className="badge-dot" aria-hidden="true" />
               独立开发者 · 接受新项目
             </p>
-            <h1 id="hero-title">何文韬</h1>
+            <UserCursor label="何文韬" className="hero-name">
+              <h1 id="hero-title">He Wentao</h1>
+            </UserCursor>
             <p className="lede">
               做 Agent、移动应用与 AI 产品。从需求、架构到落地，一个人推进到底。
             </p>

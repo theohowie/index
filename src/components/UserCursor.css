@@ -1,0 +1,66 @@
+/* User Cursor — 带名牌的协作光标 */
+
+.user-cursor {
+  position: relative;
+}
+
+.user-cursor-layer {
+  position: fixed;
+  z-index: 58;
+  top: 0;
+  left: 0;
+  color: var(--accent);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 160ms ease;
+  will-change: transform;
+}
+
+.user-cursor[data-active='true'] .user-cursor-layer {
+  opacity: 1;
+}
+
+.user-cursor-arrow {
+  display: block;
+  filter: drop-shadow(0 2px 3px rgba(11, 12, 16, 0.22));
+  transform: scale(0.72);
+  transform-origin: 3px 3px;
+  transition: transform 380ms var(--ease);
+}
+
+.user-cursor[data-active='true'] .user-cursor-arrow {
+  transform: scale(1);
+}
+
+.user-cursor-tag {
+  position: absolute;
+  top: 19px;
+  left: 21px;
+  padding: 3px 8px;
+  color: #fff;
+  font-size: 11.5px;
+  font-weight: 560;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  background: var(--accent);
+  border-radius: 3px 9px 9px 9px;
+  box-shadow: 0 8px 18px -8px rgba(11, 12, 16, 0.45);
+  opacity: 0;
+  transform: translateY(5px) scale(0.94);
+  transform-origin: 0 0;
+  transition:
+    opacity 220ms ease 60ms,
+    transform 420ms var(--ease) 60ms;
+}
+
+.user-cursor[data-active='true'] .user-cursor-tag {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+@media (pointer: coarse) {
+  .user-cursor-layer {
+    display: none;
+  }
+}
