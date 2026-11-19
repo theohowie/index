@@ -121,6 +121,7 @@ function App() {
             </p>
             <UserCursor label="何文韬" className="hero-name">
               <h1 id="hero-title">He Wentao</h1>
+              <p className="hero-alias">TheoHowie</p>
             </UserCursor>
             <p className="lede">
               做 Agent、移动应用与 AI 产品。从需求、架构到落地，一个人推进到底。

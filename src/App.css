@@ -154,10 +154,18 @@ main {
   letter-spacing: -0.042em;
 }
 
+.hero-alias {
+  margin-top: 16px;
+  color: #54565c;
+  font-size: 15.5px;
+  font-weight: 560;
+  letter-spacing: 0.075em;
+}
+
 .lede {
   max-width: 472px;
+  margin-top: 22px;
   text-wrap: pretty;
-  margin-top: 24px;
   color: var(--muted);
   font-size: 17px;
   line-height: 1.75;
