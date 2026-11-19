@@ -94,7 +94,6 @@ const projectMeta: Omit<ProjectCard, 'images'>[] = [
 
 function App() {
   const [ready, setReady] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
   const [stuck, setStuck] = useState(false)
   const barRef = useRef<HTMLElement>(null)
 
@@ -105,7 +104,6 @@ function App() {
       if (alive) setReady(true)
     })
     const onScroll = () => {
-      setScrolled(window.scrollY > 60)
       const bar = barRef.current
       if (bar) setStuck(bar.getBoundingClientRect().top <= 0.5)
     }
@@ -154,7 +152,7 @@ function App() {
         跳到作品
       </a>
 
-      <header className="nav" data-scrolled={scrolled ? 'true' : undefined}>
+      <header className="nav">
         <a className="brand" href="#top" aria-label="回到顶部">
           何文韬
         </a>
