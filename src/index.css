@@ -1,0 +1,102 @@
+@import '@fontsource-variable/manrope/wght.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+
+:root {
+  --canvas: #edf1f2;
+  --canvas-deep: #dfe6e8;
+  --surface: #f7f8f5;
+  --surface-bright: #fcfdfb;
+  --ink: #081d24;
+  --ink-2: #18333b;
+  --muted: #5e7075;
+  --line: rgba(8, 29, 36, 0.14);
+  --line-strong: rgba(8, 29, 36, 0.26);
+  --orange: #ff5a2a;
+  --orange-soft: #ffd8ca;
+  --teal: #0c7372;
+  --green: #b8e66b;
+  --blue: #315efb;
+  --paper: #f5f2ea;
+  --font-sans: 'Manrope Variable', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+  --font-mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  --max-width: 1240px;
+  font-family: var(--font-sans);
+  color: var(--ink);
+  background: var(--canvas);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 92px;
+  background: var(--canvas);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 8% 4%, rgba(255, 90, 42, 0.08), transparent 26rem),
+    var(--canvas);
+  color: var(--ink);
+}
+
+body,
+button,
+a {
+  font-family: var(--font-sans);
+}
+
+a {
+  color: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+p,
+h1,
+h2,
+h3,
+blockquote,
+dl,
+dd,
+figure {
+  margin: 0;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+::selection {
+  color: var(--ink);
+  background: var(--orange-soft);
+}
+
+:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 4px;
+}
+
+#root {
+  min-height: 100vh;
+}

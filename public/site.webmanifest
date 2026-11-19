@@ -1,0 +1,16 @@
+{
+  "name": "何文韬 / TheoHowie — Product Systems",
+  "short_name": "TheoHowie",
+  "description": "AI 产品、Agent、移动应用与二次开发作品集",
+  "start_url": "/index/",
+  "display": "standalone",
+  "background_color": "#edf1f2",
+  "theme_color": "#edf1f2",
+  "icons": [
+    {
+      "src": "/index/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
