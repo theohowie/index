@@ -9,7 +9,7 @@
   z-index: 58;
   top: 0;
   left: 0;
-  color: var(--accent);
+  color: var(--tan);
   pointer-events: none;
   opacity: 0;
   transition: opacity 160ms ease;
@@ -22,7 +22,7 @@
 
 .user-cursor-arrow {
   display: block;
-  filter: drop-shadow(0 2px 3px rgba(11, 12, 16, 0.22));
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.45));
   transform: scale(0.72);
   transform-origin: 3px 3px;
   transition: transform 380ms var(--ease);
@@ -37,13 +37,13 @@
   top: 19px;
   left: 21px;
   padding: 3px 8px;
-  color: #fff;
+  color: var(--tan-deep);
   font-size: 11.5px;
   font-weight: 560;
   line-height: 1.35;
   letter-spacing: 0.01em;
   white-space: nowrap;
-  background: var(--accent);
+  background: var(--tan);
   border-radius: 3px 9px 9px 9px;
   box-shadow: 0 8px 18px -8px rgba(11, 12, 16, 0.45);
   opacity: 0;

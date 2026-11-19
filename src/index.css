@@ -1,24 +1,24 @@
-@import '@fontsource-variable/manrope/wght.css';
+@import '@fontsource/instrument-serif/400.css';
+@import '@fontsource/instrument-serif/400-italic.css';
+@import '@fontsource-variable/inter';
 
 :root {
-  --bg: #f5f4f1;
-  --bg-soft: #efece7;
-  --panel: #ffffff;
-  --ink: #15161a;
-  --ink-soft: #3b3d43;
-  --muted: #71737a;
-  --line: rgba(21, 22, 26, 0.09);
-  --line-strong: rgba(21, 22, 26, 0.16);
-  --hover: rgba(21, 22, 26, 0.045);
-  --accent: #2f6bf6;
-  --radius: 14px;
-  --radius-lg: 22px;
-  --max: 1040px;
-  --gutter: 28px;
-  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --bg: #000000;
+  --panel: #0c0c0c;
+  --ink: #ffffff;
+  --muted: rgba(255, 255, 255, 0.6);
+  --dim: rgba(255, 255, 255, 0.36);
+  --line: rgba(255, 255, 255, 0.14);
+  --line-soft: rgba(255, 255, 255, 0.07);
+  --green: #4ade80;
+  --serif: 'Instrument Serif', 'Songti SC', 'STSong', Georgia, serif;
+  --sans: 'Inter Variable', 'Inter', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+  --max: 1240px;
+  --gutter: 40px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
 
-  font-family: 'Manrope Variable', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
-    sans-serif;
+  color-scheme: dark;
+  font-family: var(--sans);
   color: var(--ink);
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
@@ -32,26 +32,14 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 84px;
+  scroll-padding-top: 96px;
 }
 
 body {
-  position: relative;
   margin: 0;
   min-width: 320px;
   background: var(--bg);
-}
-
-/* fine paper grain: keeps the flat surfaces from looking synthetic */
-body::after {
-  position: fixed;
-  z-index: 70;
-  inset: 0;
-  content: '';
-  pointer-events: none;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
-  mix-blend-mode: multiply;
+  overflow-x: hidden;
 }
 
 a {
@@ -80,19 +68,24 @@ ul {
   list-style: none;
 }
 
+button {
+  font: inherit;
+}
+
 :focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
-  border-radius: 6px;
+  outline: 1px solid #fff;
+  outline-offset: 4px;
+  border-radius: 2px;
 }
 
 ::selection {
-  background: rgba(47, 107, 246, 0.16);
+  color: #000;
+  background: #fff;
 }
 
 #root {
   opacity: 0;
-  transition: opacity 320ms ease;
+  transition: opacity 420ms ease;
 }
 
 html[data-ready='true'] #root {
@@ -114,5 +107,6 @@ html[data-ready='true'] #root {
   *::after {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
   }
 }

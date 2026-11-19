@@ -2,85 +2,64 @@
 
 ## 目标
 
-用最少的结构说明三件事：我是谁、做过什么、在哪里查看。
-截图是主角，界面只负责把它托起来。
+黑底、超大衬线名字、一台从页面底部升起的手机。
+光标扫过手机时，屏幕从「虚焦的另一张」变成清晰的真实界面——这是整页唯一的交互噱头。
 
-## 设计原则
+## 三个参考各取了什么
 
-- 内容先于装饰，不使用营销标语。
-- 真实截图承担说明，减少辅助文案。
-- 一块暖白底（`#f5f4f1`）+ 墨黑字 + 发丝分隔线，只有热点轻微上浮。
-- 单个强调色 `--accent` 只用于焦点环，不做装饰性大面积上色。
-- 支持键盘焦点、减少动态效果、单列移动端。
+| 来源 | 取的部分 |
+|---|---|
+| Measured | 首屏单屏结构：黑底 + 巨大 `Instrument Serif` 字标 + 玻璃拟态胶囊导航 |
+| Lithos | 光标聚光揭示：两层同版位的图，软圆遮罩露出第二张 |
+| Jack | 整页骨架：跑马灯 → 关于 → 能力列表 → 项目卡堆叠 |
 
-## 组件
+## 结构
 
-源码在 `src/components/`，均为原生 React + CSS，不依赖 UI 库。
-
-### `Device` — 手机展示组件
-
-所有界面截图都应该放进它。工作室打光感的立体机身：金属渐变边框、侧键、
-屏幕柔光、地面投影，指针在附近移动时有轻微视差。
-
-```tsx
-<Device
-  src={assetUrl('images/heracles-hero.webp')}  // 截图
-  alt="Heracles 任务计划面板"                    // 无障碍描述
-  width="clamp(206px, 62vw, 268px)"             // 数字（px）或任意 CSS 长度
-  tilt={-7}                                     // 静态 Y 轴旋转角度
-  priority                                       // 首屏用，跳过懒加载
-/>
+```
+nav      固定：白块 logo + THEOHOWIE / 胶囊导航 / 绿点 CTA（滚动后加毛玻璃底）
+hero     100svh：网格底 + 暖光 + 字标 + 手机（聚光揭示）
+marquee  两排封面随滚动反向位移
+about    大衬线「关于」+ 段落
+services 白底圆角：能力 01–05
+stack    深色圆角压在白底上：4 张项目卡 sticky 堆叠
 ```
 
-内部所有尺寸都由 `--device-w` 推导（圆角、边框、侧键、投影），
-所以改一个宽度，整台机器按比例缩放，不会出现错位。
+## 视觉系统
 
-截图建议：**整屏、无状态栏、竖屏**。当前素材是 560×1216（比例 0.46）。
+- 背景 `#000`，面板 `#0c0c0c`，白字，唯一的彩色是导航上的绿点 `#4ade80`。
+- 字体只有两个：`Instrument Serif`（字标、区块标题、序号）+ `Inter`（正文、导航、标签）。
+  中文走衬线的 Songti / Noto Serif 回退。
+- 圆角语言：导航胶囊 999px、卡片 48px、白底区块上圆角 56px。
 
-### `CustomCursor` — 环形光标
+## 关键实现
 
-鼠标位置一个圆环 + 一个实心点。悬停可交互元素时圆环放大、圆点退让；
-带 `data-cursor-label="文字"` 的元素会把圆环撑成药丸并显示该文字。
+- **聚光揭示**（`SpotlightStage`）：两层 `.spot-layer` 装同一个 `Device`，底图虚焦 + 压暗，
+  上层用 `radial-gradient(circle 260px at var(--mx) var(--my), ...)` 做 mask。
+  指针位置用 lerp 0.1 平滑，每帧写 CSS 变量。触屏没有光标，直接给清晰版。
+- **项目封面**（`lib/covers.ts`）：Canvas 现画，方形画布居中构图，4 个色系 × 3 种版式，
+  裁成横幅（跑马灯）或竖条（卡片）都不丢主体。没有图片资源依赖。
+- **堆叠卡**（`ProjectStack`）：`position: sticky` + 下一张压上来时 `scale` 到 0.91，
+  用 rAF 节流的滚动监听算 `cover` 进度。
+- **跑马灯**（`Marquee`）：滚动位移 `(scrollY - sectionTop + innerHeight) * 0.3`，两排反向。
 
-- 触屏设备、`prefers-reduced-motion: reduce` 下自动不挂载，原生光标照常。
-- 挂在 `App.tsx` 顶层，全局生效。
-- 非原生控件想被识别，加 `data-cursor-target`。
+## 内容怎么维护
 
-### `HoverPreview` — 悬停浮层
-
-悬停某一行时，一张卡片跟着指针走，用于「二次开发」列表。
-
-```tsx
-<HoverPreview preview={<div className="preview-card">…</div>}>
-  <div className="row">…</div>
-</HoverPreview>
-```
-
-### `Reveal` — 入场动画
-
-`IntersectionObserver` 触发一次，延迟可用 `delay` 控制。
-
-## 怎么加新截图
-
-1. 把图放进 `public/images/`，命名 `项目-用途.webp`。
-2. 在 `src/data.ts` 的 `heraclesScreens` 里追加一条
-   `{ src, alt, label }`：第一条是主图，后两条排在两侧。
-3. 其它项目还没有截图，先用 `<EmptyDevice mark="首字母" />` 占位，
-   有图之后换成 `<Device src=… alt=… />`，版式不用动。
+| 想改 | 改哪里 |
+|---|---|
+| 项目名 / 简介 / 链接 | `src/App.tsx` 的 `projectMeta` |
+| 能力 5 条 | `src/App.tsx` 的 `capabilities` |
+| 项目卡里的图 | `projectMeta` 的 `images`，Heracles 用真实截图，其余用 `coverArt()` 生成 |
+| 封面配色 / 版式 | `src/lib/covers.ts` 的 `SERIES` |
+| 首屏两张图 | `SpotlightStage` 的 `baseSrc` / `revealSrc` |
 
 ## 关于 React Bits Pro
 
-`components.json` 已按官方文档配好 `@reactbits-starter` / `@reactbits-pro`
-两个注册表，授权码读 `.env.local` 里的 `REACTBITS_LICENSE_KEY`。
-
-但本机的 `pro.reactbits.dev` 走代理连不上，`npx shadcn@latest add` 拉不到
-文件，所以 `Device` 和 `CustomCursor` 是按官方文档描述的行为手写的等价实现
-（原生 CSS，没有 Tailwind，也不依赖 shadcn 体系）。等你本地能连上注册表时，
-可以按官方命令装上原版，再逐个替换 `src/components/` 下的同名组件。
+`components.json` 里配了 `@reactbits-starter` / `@reactbits-pro` 注册表与
+`REACTBITS_LICENSE_KEY`。但本机连不上 `pro.reactbits.dev`，所以
+`Device` / `CustomCursor` / `UserCursor` 是按官方文档行为手写的等价实现（原生 CSS）。
 
 ## 技术
 
-- React + TypeScript + Vite
-- 本地字体与图片资源
-- GitHub Pages + GitHub Actions
-- 语义化标题、键盘焦点、减少动态效果支持
+- React + TypeScript + Vite，无 three.js、无 Tailwind、无动画库
+- 字体自托管（@fontsource），零外部 CDN
+- 构建产物 243KB JS / 21KB CSS

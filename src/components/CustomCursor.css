@@ -28,7 +28,7 @@
   position: absolute;
   inset: 0;
   content: '';
-  border: 1.25px solid rgba(21, 22, 26, 0.55);
+  border: 1.25px solid rgba(255, 255, 255, 0.5);
   border-radius: 50%;
   transition:
     transform 420ms var(--ease),
@@ -40,7 +40,7 @@
 .cursor-dot {
   width: 5px;
   height: 5px;
-  background: #15161a;
+  background: #ffffff;
   border-radius: 50%;
   transition:
     opacity 220ms ease,
@@ -53,12 +53,12 @@
   top: calc(100% + 8px);
   left: 50%;
   padding: 5px 11px;
-  color: #fbfaf7;
+  color: #16120d;
   font-size: 11px;
   font-weight: 560;
   letter-spacing: 0.01em;
   white-space: nowrap;
-  background: #15161a;
+  background: #f7f1e6;
   border-radius: 999px;
   opacity: 0;
   transform: translate(-50%, -4px) scale(0.92);
@@ -81,7 +81,7 @@ html[data-cursor-suppressed='true'] .cursor-dot {
 
 /* hover an interactive element: ring grows, dot retreats */
 html[data-cursor='link'] .cursor-ring::before {
-  border-color: rgba(21, 22, 26, 0.9);
+  border-color: rgba(255, 255, 255, 0.9);
   transform: scale(1.5);
 }
 
@@ -92,8 +92,8 @@ html[data-cursor='link'] .cursor-dot {
 
 /* labelled state: ring widens slightly, pill fades in */
 html[data-cursor='label'] .cursor-ring::before {
-  border-color: rgba(21, 22, 26, 0.16);
-  background-color: rgba(255, 255, 255, 0.55);
+  border-color: rgba(255, 255, 255, 0.16);
+  background-color: rgba(255, 255, 255, 0.08);
   transform: scale(2.1);
 }
 
