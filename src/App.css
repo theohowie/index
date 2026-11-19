@@ -63,7 +63,12 @@
   justify-content: space-between;
   gap: 16px;
   padding: 18px 24px;
+  pointer-events: none;
   animation: nav-drop 900ms var(--ease) 500ms both;
+}
+
+.nav > * {
+  pointer-events: auto;
 }
 
 .nav[data-scrolled='true'] {
@@ -74,25 +79,16 @@
 }
 
 .brand {
-  display: inline-flex;
-  gap: 10px;
-  align-items: center;
-  justify-self: start;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
   text-decoration: none;
+  transition: opacity 200ms ease;
 }
 
-.brand-tile {
-  width: 22px;
-  height: 22px;
-  background: #fff;
-  border-radius: 4px;
-  box-shadow: 0 0 24px rgba(255, 255, 255, 0.25);
-}
-
-.brand-name {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.28em;
+.brand:hover {
+  opacity: 0.72;
 }
 
 .nav-cta {
@@ -106,14 +102,6 @@
   font-weight: 500;
   text-decoration: none;
   border-radius: 999px;
-}
-
-.nav-dot {
-  width: 7px;
-  height: 7px;
-  background: var(--green);
-  border-radius: 50%;
-  box-shadow: 0 0 10px var(--green);
 }
 
 /* ----------------------------------------------------------------- hero */

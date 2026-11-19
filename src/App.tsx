@@ -11,6 +11,14 @@ import { coverArt, warmCovers } from './lib/covers'
 
 const assetUrl = (path: string) => `${import.meta.env.BASE_URL}${path}`
 
+function GitHubMark({ size = 14 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M12 .7a11.5 11.5 0 0 0-3.64 22.42c.58.1.79-.25.79-.56v-2.18c-3.23.7-3.91-1.37-3.91-1.37-.53-1.33-1.29-1.69-1.29-1.69-1.06-.72.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.72 1.26 3.39.96.1-.75.41-1.26.74-1.55-2.58-.29-5.3-1.29-5.3-5.68 0-1.25.45-2.28 1.19-3.08-.12-.29-.52-1.47.11-3.04 0 0 .97-.31 3.16 1.18a10.9 10.9 0 0 1 5.76 0c2.19-1.49 3.15-1.18 3.15-1.18.63 1.57.23 2.75.11 3.04.74.8 1.19 1.83 1.19 3.08 0 4.4-2.73 5.39-5.32 5.67.42.36.8 1.08.8 2.18v3.23c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .7Z" />
+    </svg>
+  )
+}
+
 const capabilities = [
   {
     num: '01',
@@ -148,13 +156,17 @@ function App() {
 
       <header className="nav" data-scrolled={scrolled ? 'true' : undefined}>
         <a className="brand" href="#top" aria-label="回到顶部">
-          <span className="brand-tile" aria-hidden="true" />
-          <span className="brand-name">THEOHOWIE</span>
+          何文韬
         </a>
 
-        <a className="nav-cta liquid-glass" href="#work">
-          <span className="nav-dot" aria-hidden="true" />
-          <span>看作品</span>
+        <a
+          className="nav-cta liquid-glass"
+          href="https://github.com/theohowie"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <GitHubMark />
+          <span>GitHub</span>
         </a>
       </header>
 
