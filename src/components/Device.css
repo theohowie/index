@@ -1,0 +1,157 @@
+/* Device — studio-lit 3D phone mockup. Everything scales from --device-w. */
+
+.device {
+  display: block;
+  margin: 0;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.device-stage {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  perspective: 1500px;
+  perspective-origin: 50% 40%;
+}
+
+.device-float {
+  position: relative;
+  width: var(--device-w);
+  transform: rotateY(var(--device-tilt, 0deg));
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.device-frame {
+  position: relative;
+  padding: calc(var(--device-w) * 0.03);
+  background: linear-gradient(
+    148deg,
+    #5a5e67 0%,
+    #24262b 17%,
+    #0f1013 45%,
+    #171920 72%,
+    #3d4048 100%
+  );
+  border-radius: calc(var(--device-w) * 0.163);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.17),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 0 0 1px rgba(8, 9, 11, 0.5),
+    0 18px 34px -18px rgba(11, 12, 16, 0.45),
+    0 46px 80px -46px rgba(11, 12, 16, 0.5);
+  transition: box-shadow 520ms var(--ease);
+}
+
+.device-stage[data-lift='true'] .device-frame {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 0 0 1px rgba(8, 9, 11, 0.5),
+    0 26px 46px -18px rgba(11, 12, 16, 0.42),
+    0 70px 110px -50px rgba(11, 12, 16, 0.4);
+}
+
+.device-screen {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 560 / 1216;
+  background: #0a0b0d;
+  border-radius: calc(var(--device-w) * 0.135);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+.device-screen img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* soft studio sheen, follows the pointer through --gx / --gy */
+.device-glare {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      56% 38% at var(--gx, 34%) var(--gy, 4%),
+      rgba(255, 255, 255, 0.2),
+      rgba(255, 255, 255, 0) 60%
+    ),
+    linear-gradient(
+      116deg,
+      rgba(255, 255, 255, 0) 40%,
+      rgba(255, 255, 255, 0.07) 47%,
+      rgba(255, 255, 255, 0) 55%
+    );
+  border-radius: calc(var(--device-w) * 0.163);
+  mix-blend-mode: soft-light;
+  opacity: 0.9;
+}
+
+.device-edge {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    165deg,
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0) 14%,
+    rgba(255, 255, 255, 0) 82%,
+    rgba(255, 255, 255, 0.08)
+  );
+  border-radius: calc(var(--device-w) * 0.163);
+}
+
+.device-key {
+  position: absolute;
+  width: calc(var(--device-w) * 0.0085);
+  background: linear-gradient(90deg, #4c5058, #16171b);
+  border-radius: 2px;
+}
+
+.device-key--power {
+  right: calc(var(--device-w) * -0.0072);
+  top: 27%;
+  height: 11%;
+}
+
+.device-key--vol-up {
+  left: calc(var(--device-w) * -0.0072);
+  top: 19.5%;
+  height: 6.5%;
+  background: linear-gradient(90deg, #16171b, #4c5058);
+}
+
+.device-key--vol-down {
+  left: calc(var(--device-w) * -0.0072);
+  top: 28%;
+  height: 6.5%;
+  background: linear-gradient(90deg, #16171b, #4c5058);
+}
+
+.device-shadow {
+  position: absolute;
+  bottom: calc(var(--device-w) * -0.012);
+  left: 50%;
+  width: calc(var(--device-w) * 0.92);
+  height: calc(var(--device-w) * 0.075);
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(12, 13, 17, 0.32),
+    rgba(12, 13, 17, 0) 72%
+  );
+  filter: blur(calc(var(--device-w) * 0.035));
+  translate: -50% 0;
+  transition: opacity 400ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .device-float,
+  .device-frame,
+  .device-shadow {
+    transition: none;
+  }
+}

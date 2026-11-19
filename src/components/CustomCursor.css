@@ -1,0 +1,130 @@
+/* Custom Cursor — ring + dot that morphs around hovered items */
+
+.cursor-layer {
+  position: fixed;
+  z-index: 9999;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  contain: layout style;
+}
+
+.cursor-ring,
+.cursor-dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  will-change: transform;
+  transition: opacity 220ms ease;
+}
+
+.cursor-ring {
+  width: 34px;
+  height: 34px;
+}
+
+.cursor-ring::before {
+  position: absolute;
+  inset: 0;
+  content: '';
+  border: 1.25px solid rgba(21, 22, 26, 0.55);
+  border-radius: 50%;
+  transition:
+    transform 420ms var(--ease),
+    border-color 260ms ease,
+    background-color 260ms ease,
+    opacity 260ms ease;
+}
+
+.cursor-dot {
+  width: 5px;
+  height: 5px;
+  background: #15161a;
+  border-radius: 50%;
+  transition:
+    opacity 220ms ease,
+    scale 380ms var(--ease),
+    background-color 260ms ease;
+}
+
+.cursor-label {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  padding: 5px 11px;
+  color: #fbfaf7;
+  font-size: 11px;
+  font-weight: 560;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  background: #15161a;
+  border-radius: 999px;
+  opacity: 0;
+  transform: translate(-50%, -4px) scale(0.92);
+  transition:
+    opacity 240ms ease,
+    transform 380ms var(--ease);
+}
+
+/* reveal once the pointer has been seen */
+html[data-cursor-visible='true'] .cursor-ring,
+html[data-cursor-visible='true'] .cursor-dot {
+  opacity: 1;
+}
+
+/* hover an interactive element: ring grows, dot retreats */
+html[data-cursor='link'] .cursor-ring::before {
+  border-color: rgba(21, 22, 26, 0.9);
+  transform: scale(1.5);
+}
+
+html[data-cursor='link'] .cursor-dot {
+  opacity: 0.35;
+  scale: 0.55;
+}
+
+/* labelled state: ring widens slightly, pill fades in */
+html[data-cursor='label'] .cursor-ring::before {
+  border-color: rgba(21, 22, 26, 0.16);
+  background-color: rgba(255, 255, 255, 0.55);
+  transform: scale(2.1);
+}
+
+html[data-cursor='label'] .cursor-dot {
+  opacity: 0;
+  scale: 0;
+}
+
+html[data-cursor='label'] .cursor-label {
+  opacity: 1;
+  transform: translate(-50%, 0) scale(1);
+}
+
+/* press */
+html[data-cursor-press='true'] .cursor-ring::before {
+  transform: scale(0.82);
+}
+
+html[data-cursor-press='true'][data-cursor='link'] .cursor-ring::before {
+  transform: scale(1.18);
+}
+
+html[data-cursor-press='true'] .cursor-dot {
+  scale: 1.6;
+  opacity: 1;
+}
+
+/* the native arrow only disappears where a fine pointer exists */
+@media (pointer: fine) {
+  html.has-custom-cursor,
+  html.has-custom-cursor * {
+    cursor: none !important;
+  }
+}
+
+@media (pointer: coarse) {
+  .cursor-layer {
+    display: none;
+  }
+}

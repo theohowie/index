@@ -29,3 +29,6 @@ playwright-report/
 test-results/
 
 qa-site/
+
+# WorkBuddy project data
+.workbuddy/
