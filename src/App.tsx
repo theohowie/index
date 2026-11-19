@@ -1,7 +1,7 @@
 import { useEffect, type ReactNode } from 'react'
 import { ArrowUpRight } from 'lucide-react'
 import './App.css'
-import { navItems, researchProjects } from './data'
+import { navItems } from './data'
 
 const assetUrl = (path: string) => `${import.meta.env.BASE_URL}${path}`
 
@@ -109,20 +109,12 @@ function App() {
             </div>
           </article>
 
-          <div className="grid">
+          <div className="grid grid--single">
             <article className="card">
               <div className="card-body">
                 <h3>Zoosy</h3>
                 <p>Flutter 思考记录应用。支持语音速记、AI 摘要与本地数据管理。</p>
                 <LinkOut href="https://github.com/theohowie/zoosy-update">源码</LinkOut>
-              </div>
-            </article>
-
-            <article className="card">
-              <div className="card-body">
-                <h3>张弓言语</h3>
-                <p>中文言语理解 Skill。整理张弓十二箭的解题流程。</p>
-                <LinkOut href="https://github.com/theohowie/zhang-gong-verbal-skill">源码</LinkOut>
               </div>
             </article>
           </div>
@@ -150,20 +142,6 @@ function App() {
                 <LinkOut className="quiet" href="https://github.com/Mashiro0619/Sked">Sked</LinkOut>
               </div>
             </li>
-          </ul>
-        </Section>
-
-        <Section id="research" title="研究">
-          <ul className="research">
-            {researchProjects.map((project) => (
-              <li key={project.name}>
-                <a href={project.href} target="_blank" rel="noreferrer">
-                  <span>{project.name}</span>
-                  <span className="research-focus">{project.focus}</span>
-                  <ArrowUpRight size={14} strokeWidth={2} aria-hidden="true" />
-                </a>
-              </li>
-            ))}
           </ul>
         </Section>
 

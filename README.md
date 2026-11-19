@@ -4,9 +4,8 @@
 
 ## 内容范围
 
-- **原创产品**：Heracles、Zoosy、张弓言语 Skill
+- **原创产品**：Heracles、Zoosy
 - **二次开发**：Bridge（基于 Sudo）、LinkStudy（基于 Sked）
-- **研究记录**：Agent、开发工具与 AI 产品相关的 Fork 项目
 
 站点明确区分原创、二次开发与技术研究，不使用 Fork 项目冒充原创成果。
 

@@ -193,6 +193,8 @@ main {
   margin-top: 16px;
 }
 
+.grid--single { grid-template-columns: 1fr; }
+
 .card {
   min-height: 210px;
   background: var(--panel);
