@@ -18,6 +18,8 @@ import {
 import './App.css'
 import { focusAreas, navItems, researchProjects } from './data'
 
+const assetUrl = (path: string) => `${import.meta.env.BASE_URL}${path}`
+
 type SafeImageProps = {
   src: string
   alt: string
@@ -224,7 +226,7 @@ function App() {
                   <div className="phone phone--hero">
                     <span className="phone-island" aria-hidden="true" />
                     <SafeImage
-                      src="https://theohowie.github.io/Heracles/shots/hero-v3.webp"
+                      src={assetUrl('images/heracles-hero.webp')}
                       alt="Heracles Android 应用真机界面"
                       className="phone-screen"
                       eager
@@ -367,7 +369,7 @@ function App() {
               <div className="device-scene" aria-hidden="true">
                 <div className="phone phone--back">
                   <SafeImage
-                    src="https://theohowie.github.io/Heracles/shots/tool-v3.webp"
+                    src={assetUrl('images/heracles-tool.webp')}
                     alt=""
                     className="phone-screen"
                     fallback="TOOL"
@@ -376,7 +378,7 @@ function App() {
                 <div className="phone phone--front">
                   <span className="phone-island" />
                   <SafeImage
-                    src="https://theohowie.github.io/Heracles/shots/chat-v3.webp"
+                    src={assetUrl('images/heracles-chat.webp')}
                     alt="Heracles 对话与工具调用界面"
                     className="phone-screen"
                     fallback="CHAT"
