@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react'
-import { ArrowDown, ArrowUpRight } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
+import { ArrowUpRight } from 'lucide-react'
 import './App.css'
 import CustomCursor from './components/CustomCursor'
 import Marquee from './components/Marquee'
 import ProjectStack, { type ProjectCard } from './components/ProjectStack'
 import HeroBackdrop from './components/HeroBackdrop'
 import UserCursor from './components/UserCursor'
-import { heraclesScreens, navItems } from './data'
+import { heraclesScreens } from './data'
 import { coverArt, warmCovers } from './lib/covers'
 
 const assetUrl = (path: string) => `${import.meta.env.BASE_URL}${path}`
@@ -87,6 +87,8 @@ const projectMeta: Omit<ProjectCard, 'images'>[] = [
 function App() {
   const [ready, setReady] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [stuck, setStuck] = useState(false)
+  const barRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
     document.documentElement.dataset.ready = 'true'
@@ -94,7 +96,11 @@ function App() {
     warmCovers().then(() => {
       if (alive) setReady(true)
     })
-    const onScroll = () => setScrolled(window.scrollY > 60)
+    const onScroll = () => {
+      setScrolled(window.scrollY > 60)
+      const bar = barRef.current
+      if (bar) setStuck(bar.getBoundingClientRect().top <= 0.5)
+    }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
 
@@ -146,14 +152,6 @@ function App() {
           <span className="brand-name">THEOHOWIE</span>
         </a>
 
-        <nav className="nav-pill liquid-glass" aria-label="主导航">
-          {navItems.map((item) => (
-            <a key={item.href} href={item.href}>
-              {item.label}
-            </a>
-          ))}
-        </nav>
-
         <a className="nav-cta liquid-glass" href="#work">
           <span className="nav-dot" aria-hidden="true" />
           <span>看作品</span>
@@ -178,33 +176,28 @@ function App() {
             <p className="wordmark-sub">TheoHowie</p>
           </div>
 
-          <div className="hero-foot">
-            <p className="hero-hint">
-              <span className="hint-dot" aria-hidden="true" />
-              移动光标，看另一面
-            </p>
-
-            <ul className="hero-links">
-              {heroLinks.map((item) => (
-                <li key={item.label}>
-                  <a
-                    href={item.href}
-                    {...(item.href.startsWith('#')
-                      ? {}
-                      : { target: '_blank', rel: 'noreferrer' })}
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-
-            <a className="hero-scroll" href="#work">
-              作品
-              <ArrowDown size={14} strokeWidth={1.6} />
-            </a>
-          </div>
+          <p className="hero-hint">
+            <span className="hint-dot" aria-hidden="true" />
+            移动光标，看另一面
+          </p>
         </section>
+
+        <nav className="link-bar" data-stuck={stuck ? 'true' : undefined} ref={barRef}>
+          <ul>
+            {heroLinks.map((item) => (
+              <li key={item.label}>
+                <a
+                  href={item.href}
+                  {...(item.href.startsWith('#')
+                    ? {}
+                    : { target: '_blank', rel: 'noreferrer' })}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
         {ready ? <Marquee tiles={tiles} /> : <div className="marquee-placeholder" />}
 
